@@ -1,4 +1,11 @@
 h1{
   margin-top: 30vw;
   margin-bottom: 10vw;
+  font-weight: bold;
+}
+input{
+  text-align: center;
+}
+button{
+  margin-top: 10px;
 }
