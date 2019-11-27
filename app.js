@@ -3,6 +3,16 @@ const cors = require('cors')
 const app = express()
 const port = 3000
 
+var mysql = require('mysql')
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'dupa12345',
+  database: 'kolofortuny'
+})
+
+connection.connect()
+
 
 var name = "unknown";
 
@@ -18,17 +28,25 @@ app.get('/', function (req, res){
 
 
 app.get('/name', function (req, res){
+    //express js jak wyciągnąć element row select * from user limit 1
   res.json({
-    username: name
 
   })
 
 
 
 })
-
 app.post('/name', function (req, res) {
   name = req.body.name;
+
+  connection.query(`INSERT INTO user (name) VALUES ('${req.body.name}');`, function (err, rows, fields) {
+    if (err) throw err
+  })
+
+
+
+  //jak się udało zwracamy res.JSON
+  //jak się nie udało to zwracamy res.JSON error
   res.json({
     username: name
   })
